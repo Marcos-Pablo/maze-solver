@@ -7,34 +7,46 @@ class Cell:
         self.has_right_wall = True
         self.has_top_wall = True
         self.has_bottom_wall = True
-        self.x1 = None
-        self.x2 = None
-        self.y1 = None
-        self.y2 = None
-        self.win = win
+        self._x1 = None
+        self._x2 = None
+        self._y1 = None
+        self._y2 = None
+        self._win = win
+
+    def draw_move(self, to_cell, undo=False):
+        if not self._win or self._x1 == None or self._y1 == None or self._x2 == None or self._y2 == None:
+            return
+
+        fill_color = "gray" if undo else "red"
+        p1 = Point((self._x1 + self._x2) // 2, (self._y1 + self._y2) // 2)
+        p2 = Point((to_cell._x1 + to_cell._x2) // 2, (to_cell._y1 + to_cell._y2) // 2)
+        print("p1 -> ", p1.x, p1.y)
+        print("p2 -> ", p2.x, p2.y)
+        line = Line(p1, p2)
+        self._win.draw_line(line, fill_color)
 
     def draw(self, x1, y1, x2, y2):
-        self.x1 = x1
-        self.x2 = x2
-        self.y1 = y1
-        self.y2 = y2
+        self._x1 = x1
+        self._x2 = x2
+        self._y1 = y1
+        self._y2 = y2
 
         if self.has_left_wall:
-            p1, p2 = Point(self.x1, self.y1), Point(self.x1, self.y2)
+            p1, p2 = Point(self._x1, self._y1), Point(self._x1, self._y2)
             line = Line(p1, p2)
-            self.win.draw_line(line)
+            self._win.draw_line(line)
 
         if self.has_right_wall:
-            p1, p2 = Point(self.x2, self.y1), Point(self.x2, self.y2)
+            p1, p2 = Point(self._x2, self._y1), Point(self._x2, self._y2)
             line = Line(p1, p2)
-            self.win.draw_line(line)
+            self._win.draw_line(line)
 
         if self.has_top_wall:
-            p1, p2 = Point(self.x1, self.y1), Point(self.x2, self.y1)
+            p1, p2 = Point(self._x1, self._y1), Point(self._x2, self._y1)
             line = Line(p1, p2)
-            self.win.draw_line(line)
+            self._win.draw_line(line)
 
         if self.has_bottom_wall:
-            p1, p2 = Point(self.x1, self.y2), Point(self.x2, self.y2)
+            p1, p2 = Point(self._x1, self._y2), Point(self._x2, self._y2)
             line = Line(p1, p2)
-            self.win.draw_line(line)
+            self._win.draw_line(line)
