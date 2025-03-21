@@ -23,5 +23,4 @@ class Window:
         self.__running = False
 
     def draw_line(self, line, fill_color: str = "black"):
-        print(f"Drawing {fill_color} line...")
         line.draw(self.__canvas, fill_color)
