@@ -4,6 +4,7 @@ from window import Window
 
 class Cell:
     def __init__(self, win: Optional[Window] = None) -> None:
+        self.visited = False
         self.has_left_wall = True
         self.has_right_wall = True
         self.has_top_wall = True
@@ -33,22 +34,26 @@ class Cell:
         self._y1 = y1
         self._y2 = y2
 
-        if self.has_left_wall:
-            p1, p2 = Point(self._x1, self._y1), Point(self._x1, self._y2)
-            line = Line(p1, p2)
-            self._win.draw_line(line)
+        # left wall
+        p1, p2 = Point(self._x1, self._y1), Point(self._x1, self._y2)
+        line = Line(p1, p2)
+        fill_color = "black" if self.has_left_wall else "white"
+        self._win.draw_line(line, fill_color)
 
-        if self.has_right_wall:
-            p1, p2 = Point(self._x2, self._y1), Point(self._x2, self._y2)
-            line = Line(p1, p2)
-            self._win.draw_line(line)
+        # right wall
+        p1, p2 = Point(self._x2, self._y1), Point(self._x2, self._y2)
+        line = Line(p1, p2)
+        fill_color = "black" if self.has_right_wall else "white"
+        self._win.draw_line(line, fill_color)
 
-        if self.has_top_wall:
-            p1, p2 = Point(self._x1, self._y1), Point(self._x2, self._y1)
-            line = Line(p1, p2)
-            self._win.draw_line(line)
+        # top wall
+        p1, p2 = Point(self._x1, self._y1), Point(self._x2, self._y1)
+        line = Line(p1, p2)
+        fill_color = "black" if self.has_top_wall else "white"
+        self._win.draw_line(line, fill_color)
 
-        if self.has_bottom_wall:
-            p1, p2 = Point(self._x1, self._y2), Point(self._x2, self._y2)
-            line = Line(p1, p2)
-            self._win.draw_line(line)
+        # bottom wall
+        p1, p2 = Point(self._x1, self._y2), Point(self._x2, self._y2)
+        line = Line(p1, p2)
+        fill_color = "black" if self.has_bottom_wall else "white"
+        self._win.draw_line(line, fill_color)
